@@ -1,6 +1,15 @@
 {
-    "docker": {
-        "imageName": "example",
-        "tagFormat": "example_{{version}}"
-    }
+    "postReleaseStart": [
+        "git checkout {{releaseBranch}}",
+        "npm run docker-build",
+        "docker tag \"$(docker images -q habu/authenticator)\" dockername/repo:imagename_prerelease_{{version}}",
+        "docker push dockername/repo"
+    ],
+    "postReleaseFinish": [
+        "git checkout master",
+        "npm run docker-build",
+        "docker tag \"$(docker images -q habu/authenticator)\" dockername/repo:imagename_{{version}}",
+        "docker push dockername/repo"
+    ]
+
 }
