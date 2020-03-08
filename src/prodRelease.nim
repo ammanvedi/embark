@@ -27,7 +27,7 @@ proc createCommandPlan(version: string): Commands =
         checkoutBranch(BRANCH_MASTER),
         gitPull(),
         Command(
-            command: fmt"git merge {releaseBranch} --quiet",
+            command: fmt"git merge {releaseBranch} --theirs --quiet",
             descriptionMessage: fmt"Merging release branch into {BRANCH_MASTER}",
             successMessage: fmt"Merged release branch into {BRANCH_MASTER}",
             errorMessage: fmt"Failed to merge release branch into {BRANCH_MASTER}"
@@ -39,18 +39,19 @@ proc createCommandPlan(version: string): Commands =
             errorMessage: fmt"Failed to push {BRANCH_MASTER} to origin"
         ),
         Command(
-            command: fmt"hub release create -t master --message {createReleaseTitle(releaseTag)} --message {createReleaseBody(releaseTag)} {releaseTag}",
+            command: fmt"""hub release create -t master --message "{createReleaseTitle(releaseTag)}" --message "{createReleaseBody(releaseTag)}" {releaseTag}""",
             descriptionMessage: fmt"Creating release {releaseTag}",
             successMessage: fmt"Created release {releaseTag}",
             errorMessage: fmt"Failed to create release {releaseTag}"
         ),
         checkoutBranch(releaseBranch),
         Command(
-            command: fmt"hub pull-request -b develop --message {createDevPRTitle(version)} --message {createDevPRBody(version)}",
+            command: fmt"""hub pull-request -b develop --message "{createDevPRTitle(version)}" --message "{createDevPRBody(version)}"""",
             descriptionMessage: fmt"Creating pull request to add changes to develop",
             successMessage: fmt"Created pull request to merge changes into develop",
             errorMessage: "Failed to create pull request to merge changes into develop"
         ),
+        checkoutBranch(BRANCH_DEVELOP)
     ]
 
     # now get any commands specified by the user

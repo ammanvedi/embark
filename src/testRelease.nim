@@ -44,13 +44,13 @@ proc createCommandPlan(version: string): Commands =
             errorMessage: fmt"Failed to bump package version {newVersion}"
         ),
         Command(
-            command: fmt"""git add . --quiet""",
+            command: fmt"""git add . &> /dev/null""",
             descriptionMessage: "Staging package.json",
             successMessage: "Staged package.json",
             errorMessage: "Failed to stage package.json"
         ),
         Command(
-            command: fmt"""git commit -m "[release] Bump package version" --quiet""",
+            command: fmt"""git commit -m "[release] {newVersion} package version bump" --quiet""",
             descriptionMessage: "Committing package.json change",
             successMessage: "Committed package.json change",
             errorMessage: "Failed to commit package json change"
@@ -60,7 +60,8 @@ proc createCommandPlan(version: string): Commands =
             descriptionMessage: "Pushing release branch to origin",
             successMessage: "Release branch pushed to origin",
             errorMessage: fmt"Failed to push branch {releaseBranch} to origin"
-        )
+        ),
+        checkoutBranch(BRANCH_DEVELOP)
     ]
 
     # now get any commands specified by the user
