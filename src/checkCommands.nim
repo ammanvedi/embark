@@ -1,8 +1,5 @@
 import os, constants
 
-proc checkGitFlowReady(): bool =
-    return execShellCmd("git flow config &> /dev/null") == 0
-
 proc checkNpmReady(): bool =
     return execShellCmd("npm -v &> /dev/null") == 0
 
