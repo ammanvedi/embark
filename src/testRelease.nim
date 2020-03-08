@@ -30,30 +30,42 @@ proc createCommandPlan(version: string): Commands =
     let releaseBranch = fmt"release/{newVersion}"
 
     var baseCommands = @[
-        [
-            "git checkout develop",
-            "Checking out develop"
-        ],
-        [
-            "git pull",
-            "Pulling latest code"
-        ],
-        [
-            fmt"git checkout -b {releaseBranch}",
-            fmt"Creating release branch ({releaseBranch})"
-        ],
-        [
-            fmt"npm version {newVersion} --no-git-tag-version",
-            fmt"Bumping package.json version to {newVersion}"
-        ],
-        [
-            fmt"""git commit -m "[release] Bump package version" """",
-            "Committing package.json change"
-        ],
-        [
-            fmt"git push -u origin {releaseBranch}",
-            "Pushing release branch to origin"
-        ]
+        Command(
+            command: "git checkout develop",
+            descriptionMessage: "Checking out develop",
+            successMessage: "On branch develop",
+            errorMessage: "Failed to check out develop branch"
+        ),
+        Command(
+            command: "git pull",
+            descriptionMessage: "Pulling latest code",
+            successMessage: "Pulled latest",
+            errorMessage: "Failed to pull on develop"
+        ),
+        Command(
+            command: fmt"git checkout -b {releaseBranch}",
+            descriptionMessage: fmt"Creating release branch ({releaseBranch})",
+            successMessage: fmt"Created release branch {releaseBranch}",
+            errorMessage: fmt"Could not create release branch {releaseBranch}"
+        ),
+        Command(
+            command: fmt"npm version {newVersion} --no-git-tag-version",
+            descriptionMessage: fmt"Bumping package.json version to {newVersion}",
+            successMessage: fmt"Bumped package version to {newVersion}",
+            errorMessage: fmt"Failed to bump package version {newVersion}"
+        ),
+        Command(
+            command: fmt"""git commit -m "[release] Bump package version" """",
+            descriptionMessage: "Committing package.json change",
+            successMessage: "Committed package.json change",
+            errorMessage: "Failed to commit package json change"
+        ),
+        Command(
+            command: fmt"git push -u origin {releaseBranch}",
+            descriptionMessage: "Pushing release branch to origin",
+            successMessage: "Release branch pushed to origin",
+            errorMessage: fmt"Failed to push branch {releaseBranch} to origin"
+        )
     ]
 
     # now get any commands specified by the user

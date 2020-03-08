@@ -10,7 +10,11 @@ type VersionBump* {.pure.} = enum
 
 type
     CommandDescription* = string
-    Command* = array[0..1, CommandDescription]
+    Command* = object
+        command*: string
+        descriptionMessage*: string
+        successMessage*: string
+        errorMessage*: string
     Commands* = seq[Command]
    
 type

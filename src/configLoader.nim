@@ -15,10 +15,14 @@ proc applyModelToUserCommand(command: string, model: UserCommandsModel): string 
     return finalCmd
 
 proc generateUserCommand(userCommand: string, model: UserCommandsModel): Command =
-    return [
-        applyModelToUserCommand(userCommand, model),
-        fmt"Running user command ({userCommand[0..10]}...)"
-    ]
+    let userCommandTruncated = userCommand[0..10]
+    
+    return Command(
+        command: applyModelToUserCommand(userCommand, model),
+        descriptionMessage: fmt"Running user command ({userCommandTruncated}...)",
+        successMessage: "User command exectuted",
+        errorMessage: "Failed to execute user command"
+    )
 
 proc generateUserCommands*(commands: seq[string], model: UserCommandsModel): Commands =
     return map(
