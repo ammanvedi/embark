@@ -30,6 +30,8 @@ except:
 
 # nim compile --run -o:../bin/embark ../src/embark.nim prod 1.1.1
 
+# TODO - add notification to user that command plan has been written
+# TODO - delete command plan if all was successful
 # TODO - stop execution on failure
 # TODO - make console output prettier, add a loader and colors
 # TODO - create checkpoint mode so script can resume from failure point?
