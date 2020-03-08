@@ -23,7 +23,6 @@ proc bumpSemanticVersion(version: string, bump: string): string =
 
     return join(newVersion, ".")
 
-
 proc createCommandPlan(version: string): Commands =
     let currentVersion = readVersionFromPackageJSON()
     let newVersion = bumpSemanticVersion(currentVersion, version)
@@ -33,25 +32,25 @@ proc createCommandPlan(version: string): Commands =
         checkoutBranch(BRANCH_DEVELOP),
         gitPull(),
         Command(
-            command: fmt"git checkout -b {releaseBranch}",
+            command: fmt"git checkout -b {releaseBranch} --quiet",
             descriptionMessage: fmt"Creating release branch ({releaseBranch})",
             successMessage: fmt"Created release branch {releaseBranch}",
             errorMessage: fmt"Could not create release branch {releaseBranch}"
         ),
         Command(
-            command: fmt"npm version {newVersion} --no-git-tag-version",
+            command: fmt"npm version {newVersion} --no-git-tag-version &> /dev/null",
             descriptionMessage: fmt"Bumping package.json version to {newVersion}",
             successMessage: fmt"Bumped package version to {newVersion}",
             errorMessage: fmt"Failed to bump package version {newVersion}"
         ),
         Command(
-            command: fmt"""git commit -m "[release] Bump package version" """",
+            command: fmt"""git commit -m "[release] Bump package version" --quiet""",
             descriptionMessage: "Committing package.json change",
             successMessage: "Committed package.json change",
             errorMessage: "Failed to commit package json change"
         ),
         Command(
-            command: fmt"git push -u origin {releaseBranch}",
+            command: fmt"git push -u origin {releaseBranch} --quiet",
             descriptionMessage: "Pushing release branch to origin",
             successMessage: "Release branch pushed to origin",
             errorMessage: fmt"Failed to push branch {releaseBranch} to origin"
@@ -65,10 +64,9 @@ proc createCommandPlan(version: string): Commands =
 
     return baseCommands & extraCommands
 
-proc handleTestRelease*(version: string) =
+proc handleTestRelease*(version: string): Commands =
     if validateVerison(version) == false:
         echo SYNOPSIS
     else:
-        let commandPlan = createCommandPlan(version)
-        echo commandPlan
+        return createCommandPlan(version)
     

@@ -15,7 +15,6 @@ proc createReleaseTitle(releaseTag: string): string =
 proc createReleaseBody(releaseTag: string): string =
     return fmt"Release {releaseTag}"
 
-
 proc createCommandPlan(version: string): Commands =
 
     let releaseBranch = fmt"release/{version}"
@@ -28,13 +27,13 @@ proc createCommandPlan(version: string): Commands =
         checkoutBranch(BRANCH_MASTER),
         gitPull(),
         Command(
-            command: fmt"git merge {releaseBranch}",
+            command: fmt"git merge {releaseBranch} --quiet",
             descriptionMessage: fmt"Merging release branch into {BRANCH_MASTER}",
             successMessage: fmt"Merged release branch into {BRANCH_MASTER}",
             errorMessage: fmt"Failed to merge release branch into {BRANCH_MASTER}"
         ),
         Command(
-            command: "git push --follow-tags",
+            command: "git push --follow-tags --quiet",
             descriptionMessage: fmt"Pushing {BRANCH_MASTER} to origin",
             successMessage: fmt"Pushed {BRANCH_MASTER} to origin",
             errorMessage: fmt"Failed to push {BRANCH_MASTER} to origin"
@@ -61,10 +60,9 @@ proc createCommandPlan(version: string): Commands =
 
     return baseCommands & extraCommands
 
-proc handleProdRelease*(version: string) =
+proc handleProdRelease*(version: string): Commands =
 
     if versionIsValid(version) == false:
         echo SYNOPSIS
-        return
-    let commandPlan = createCommandPlan(version)
-    echo commandPlan
+    else:
+        return createCommandPlan(version)
