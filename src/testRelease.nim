@@ -1,4 +1,4 @@
-import constants, strformat, json, strutils, parseutils, configLoader, types, commonCommands
+import constants, strformat, json, strutils, configLoader, types, commonCommands
 
 proc validateVerison(version: string): bool =
     return 

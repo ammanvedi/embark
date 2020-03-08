@@ -1,6 +1,5 @@
 import 
     os,
-    osproc,
     constants,
     checkCommands,
     prodRelease,
@@ -30,3 +29,7 @@ except:
     echo SYNOPSIS
 
 # nim compile --run -o:../bin/embark ../src/embark.nim prod 1.1.1
+
+# TODO - stop execution on failure
+# TODO - make console output prettier, add a loader and colors
+# TODO - create checkpoint mode so script can resume from failure point?
