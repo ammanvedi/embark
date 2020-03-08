@@ -44,6 +44,12 @@ proc createCommandPlan(version: string): Commands =
             errorMessage: fmt"Failed to bump package version {newVersion}"
         ),
         Command(
+            command: fmt"""git add . --quiet""",
+            descriptionMessage: "Staging package.json",
+            successMessage: "Staged package.json",
+            errorMessage: "Failed to stage package.json"
+        ),
+        Command(
             command: fmt"""git commit -m "[release] Bump package version" --quiet""",
             descriptionMessage: "Committing package.json change",
             successMessage: "Committed package.json change",

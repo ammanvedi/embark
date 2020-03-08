@@ -10,7 +10,7 @@ proc checkPackageJSON(): bool =
     return execShellCmd("test -f package.json") == 0
 
 proc checkHubReady(): bool =
-    return execShellCmd("hub --version") == 0
+    return execShellCmd("hub --version &> /dev/null") == 0
 
 proc checkAllPrerequisites*(): bool =
     if checkNpmReady() == false:

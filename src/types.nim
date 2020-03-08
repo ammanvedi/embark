@@ -21,3 +21,8 @@ type
     UserCommandsModel* = object
         version*: string
         releaseBranch*: string
+
+type
+    CommandResult* = object
+        success*: bool
+        output*: string

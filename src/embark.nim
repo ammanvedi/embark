@@ -1,5 +1,6 @@
 import 
     os,
+    osproc,
     constants,
     checkCommands,
     prodRelease,
@@ -21,7 +22,7 @@ proc main(subcommand: string, param: string) =
         return 
 
     writeCommandPlanToFile(commandPlan, ".embark.plan.log")
-
+    executeCommandPlan(commandPlan);
 try:
     if checkAllPrerequisites():
         main(paramStr(1), paramStr(2))
