@@ -1,4 +1,4 @@
-import constants, strformat, json, strutils, parseutils, configLoader, types
+import constants, strformat, json, strutils, parseutils, configLoader, types, commonCommands
 
 proc validateVerison(version: string): bool =
     return 
@@ -30,18 +30,8 @@ proc createCommandPlan(version: string): Commands =
     let releaseBranch = fmt"release/{newVersion}"
 
     var baseCommands = @[
-        Command(
-            command: "git checkout develop",
-            descriptionMessage: "Checking out develop",
-            successMessage: "On branch develop",
-            errorMessage: "Failed to check out develop branch"
-        ),
-        Command(
-            command: "git pull",
-            descriptionMessage: "Pulling latest code",
-            successMessage: "Pulled latest",
-            errorMessage: "Failed to pull on develop"
-        ),
+        checkoutBranch(BRANCH_DEVELOP),
+        gitPull(),
         Command(
             command: fmt"git checkout -b {releaseBranch}",
             descriptionMessage: fmt"Creating release branch ({releaseBranch})",

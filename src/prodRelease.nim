@@ -1,69 +1,56 @@
-import nre, constants, configLoader, types, strformat
+import nre, constants, configLoader, types, strformat, commonCommands
 
 proc versionIsValid(version: string): bool =
     return version.match(re"^[0-9]+\.[0-9]+\.[0-9]+$").isSome
 
+proc createDevPRTitle(version: string): string =
+    return fmt"Merge Release v{version} Into Develop"
+
+proc createDevPRBody(version: string): string =
+    return fmt"Merges changes from release branch for v{version} into develop"
+
+proc createReleaseTitle(releaseTag: string): string =
+    return releaseTag
+
+proc createReleaseBody(releaseTag: string): string =
+    return fmt"Release {releaseTag}"
+
+
 proc createCommandPlan(version: string): Commands =
 
-    let releaseBranch = fmt"release/{newVersion}"
-    # checkout release branch 
-    # pull release branch
-    # checkout master
-    # pull master
-    # merge release branch into master
-    # create tag on master
-    # push master --follow-tags
+    let releaseBranch = fmt"release/{version}"
+    let releaseTag = fmt"v{version}"
 
-    # create git release
-    # create a pr to merge release branch into develop
     let baseCommands: seq[Command] = @[
-        Command(
-            command: "git pull",
-            descriptionMessage: "Pulling latest code",
-            successMessage: "Pulled latest code",
-            errorMessage: "Failed to pull latest code"
-        ),
-        Command(
-            command: fmt"git checkout {releaseBranch}",
-            descriptionMessage: fmt"Checking out {releaseBranch}",
-            successMessage: fmt"On branch {releaseBranch}",
-            errorMessage: "Failed to check out release branch"
-        ),
-        Command(
-            command: "git pull",
-            descriptionMessage: "Pulling latest release code",
-            successMessage: "Pulled latest release code",
-            errorMessage: "Failed to pull latest release code"
-        ),
-        Command(
-            command: "git checkout master",
-            descriptionMessage: "Checking out master",
-            successMessage: "On branch master",
-            errorMessage: "Failed to check out master"
-        ),
-        Command(
-            command: "git pull",
-            descriptionMessage: "Pulling latest master code",
-            successMessage: "Pulled latest master code",
-            errorMessage: "Failed to pull latest master code"
-        ),
+        gitPull(),
+        checkoutBranch(releaseBranch),
+        gitPull(),
+        checkoutBranch(BRANCH_MASTER),
+        gitPull(),
         Command(
             command: fmt"git merge {releaseBranch}",
-            descriptionMessage: "Merging release branch into master",
-            successMessage: "Merged release branch into master",
-            errorMessage: "Failed to merge release branch into master"
-        ),
-        Command(
-            command: fmt"""git tag -a v{version} -m "release version v{version}" """,
-            descriptionMessage: fmt"Creating tag v{version} on master",
-            successMessage: "Created tag on master",
-            errorMessage: "Failed to create tag on master"
+            descriptionMessage: fmt"Merging release branch into {BRANCH_MASTER}",
+            successMessage: fmt"Merged release branch into {BRANCH_MASTER}",
+            errorMessage: fmt"Failed to merge release branch into {BRANCH_MASTER}"
         ),
         Command(
             command: "git push --follow-tags",
-            descriptionMessage: "Pushing master to origin",
-            successMessage: "Pushed master to origin",
-            errorMessage: "Failed to push master to origin"
+            descriptionMessage: fmt"Pushing {BRANCH_MASTER} to origin",
+            successMessage: fmt"Pushed {BRANCH_MASTER} to origin",
+            errorMessage: fmt"Failed to push {BRANCH_MASTER} to origin"
+        ),
+        Command(
+            command: fmt"hub release create -t master --message {createReleaseTitle(releaseTag)} --message {createReleaseBody(releaseTag)} {releaseTag}",
+            descriptionMessage: fmt"Creating release {releaseTag}",
+            successMessage: fmt"Created release {releaseTag}",
+            errorMessage: fmt"Failed to create release {releaseTag}"
+        ),
+        checkoutBranch(releaseBranch),
+        Command(
+            command: fmt"hub pull-request -b develop --message {createDevPRTitle(version)} --message {createDevPRBody(version)}",
+            descriptionMessage: fmt"Creating pull request to add changes to develop",
+            successMessage: fmt"Created pull request to merge changes into develop",
+            errorMessage: "Failed to create pull request to merge changes into develop"
         ),
     ]
 

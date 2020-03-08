@@ -4,20 +4,28 @@ const VERSION* = "1.0.0"
 
 const CONFIG_LOCATION* = "config.embark.json"
 
+const BRANCH_MASTER* = "master"
+
+const BRANCH_DEVELOP* = "develop"
+
 const SYNOPSIS* = fmt"""
 
 Embark CLI v{VERSION}
 
 Usage: 
 
-embark test (major|minor|patch)     Create a new major minor or patch release
-embark prod x.x.x                   Complete a previously created major minor or patch release
+embark test (major|minor|patch)     Create a new major minor or
+                                    patch release
+
+embark prod x.x.x                   Complete a previously created major
+                                    minor or patch release
 
 Specify configs in a config.embark.json file in the
-root of your repository and run the embark command in the
-same directory
+root of your repository and run the embark command 
+in the same directory
 
-Make sure you have npm, git flow and docker cli commands installed
+Make sure you have npm, git flow and docker cli 
+commands installed
 
 """
 
@@ -36,6 +44,22 @@ It looks like you dont have the npm CLI installed
 
 You can find instructions on how to install this here
 https://www.npmjs.com/get-npm
+
+"""
+
+const INSTALL_HUB* = """
+
+It looks like you dont have the hub cli installed
+
+You can find instructions on how to install this here
+https://hub.github.com/
+
+You should also make sure that you have appropriate 
+credentials set up, if you can run 
+
+hub pr list
+
+without error then you should be fine!
 
 """
 
@@ -63,3 +87,4 @@ npm init
 in this directory
 
 """
+
