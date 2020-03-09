@@ -27,13 +27,13 @@ proc createCommandPlan(version: string): Commands =
         checkoutBranch(BRANCH_MASTER),
         gitPull(),
         Command(
-            command: fmt"git merge {releaseBranch} --theirs --quiet",
+            command: fmt"git merge {releaseBranch} -X theirs",
             descriptionMessage: fmt"Merging release branch into {BRANCH_MASTER}",
             successMessage: fmt"Merged release branch into {BRANCH_MASTER}",
             errorMessage: fmt"Failed to merge release branch into {BRANCH_MASTER}"
         ),
         Command(
-            command: "git push --follow-tags --quiet",
+            command: "git push --follow-tags",
             descriptionMessage: fmt"Pushing {BRANCH_MASTER} to origin",
             successMessage: fmt"Pushed {BRANCH_MASTER} to origin",
             errorMessage: fmt"Failed to push {BRANCH_MASTER} to origin"

@@ -4,6 +4,10 @@ const VERSION* = "1.0.0"
 
 const CONFIG_LOCATION* = "config.embark.json"
 
+const PLAN_LOCATION* = ".embark.plan.log"
+
+const FAIL_LOG_LOCATION* = ".embark.failure.log" 
+
 const BRANCH_MASTER* = "master"
 
 const BRANCH_DEVELOP* = "develop"

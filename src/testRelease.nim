@@ -32,31 +32,31 @@ proc createCommandPlan(version: string): Commands =
         checkoutBranch(BRANCH_DEVELOP),
         gitPull(),
         Command(
-            command: fmt"git checkout -b {releaseBranch} --quiet",
+            command: fmt"git checkout -b {releaseBranch}",
             descriptionMessage: fmt"Creating release branch ({releaseBranch})",
             successMessage: fmt"Created release branch {releaseBranch}",
             errorMessage: fmt"Could not create release branch {releaseBranch}"
         ),
         Command(
-            command: fmt"npm version {newVersion} --no-git-tag-version &> /dev/null",
+            command: fmt"npm version {newVersion} --no-git-tag-version",
             descriptionMessage: fmt"Bumping package.json version to {newVersion}",
             successMessage: fmt"Bumped package version to {newVersion}",
             errorMessage: fmt"Failed to bump package version {newVersion}"
         ),
         Command(
-            command: fmt"""git add . &> /dev/null""",
+            command: fmt"""git add .""",
             descriptionMessage: "Staging package.json",
             successMessage: "Staged package.json",
             errorMessage: "Failed to stage package.json"
         ),
         Command(
-            command: fmt"""git commit -m "[release] {newVersion} package version bump" --quiet""",
+            command: fmt"""git commit -m "[release] {newVersion} package version bump"""",
             descriptionMessage: "Committing package.json change",
             successMessage: "Committed package.json change",
             errorMessage: "Failed to commit package json change"
         ),
         Command(
-            command: fmt"git push -u origin {releaseBranch} --quiet",
+            command: fmt"git push -u origin {releaseBranch}",
             descriptionMessage: "Pushing release branch to origin",
             successMessage: "Release branch pushed to origin",
             errorMessage: fmt"Failed to push branch {releaseBranch} to origin"

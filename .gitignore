@@ -1,2 +1,3 @@
 test-env/.embark.plan.log
+test-env/.embark.failure.log
 test-env/.gitignore

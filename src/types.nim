@@ -26,3 +26,4 @@ type
     CommandResult* = object
         success*: bool
         output*: string
+        outputError*: string
