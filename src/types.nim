@@ -27,3 +27,6 @@ type
         success*: bool
         output*: string
         outputError*: string
+
+type
+    ExecFunction* = proc (cmd: string): int

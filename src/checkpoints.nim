@@ -1,6 +1,6 @@
 import strformat, types, sequtils, osproc, streams, logging, constants
 
-proc getPlanLinesFromCommand(command: Command): seq[string] =
+proc getPlanLinesFromCommand*(command: Command): seq[string] =
     return @[
         fmt"# {command.descriptionMessage}",
         command.command,

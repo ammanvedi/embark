@@ -1,14 +1,14 @@
 import json, constants, types, strformat, sequtils, strutils
 
-proc loadConfig*(): EmbarkConfig =
+proc loadConfig*(locatiion: string = CONFIG_LOCATION): EmbarkConfig =
     try:
-        let fileContent = readFile(CONFIG_LOCATION)
+        let fileContent = readFile(locatiion)
         let parsed = parseJson(fileContent)
         return to(parsed, EmbarkConfig)
     except:
         return EmbarkConfig(postReleaseStart: @[], postReleaseFinish: @[])
 
-proc applyModelToUserCommand(command: string, model: UserCommandsModel): string =
+proc applyModelToUserCommand*(command: string, model: UserCommandsModel): string =
     var finalCmd = command
     finalCmd = replace(finalCmd, "{{version}}", model.version)
     finalCmd = replace(finalCmd, "{{releaseBranch}}", model.releaseBranch)
