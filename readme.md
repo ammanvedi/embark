@@ -1,2 +1,3 @@
-![Embark Logo](https://i.imgur.com/rjy5WYy.png)
+<img src="https://i.imgur.com/rjy5WYy.png" alt="embark-logo" width="480"/>
 
+Coming soon...
