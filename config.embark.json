@@ -5,5 +5,7 @@
     ],
     "preReleaseStart": [
         "sh scripts/build.sh"
-    ]
+    ],
+    "postReleaseStart": [],
+    "postReleaseFinish": []
 }

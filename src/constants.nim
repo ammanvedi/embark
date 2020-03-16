@@ -1,7 +1,5 @@
 import strformat
 
-const VERSION* = "1.0.0"
-
 const CONFIG_LOCATION* = "config.embark.json"
 
 const PLAN_LOCATION* = ".embark.plan.log"
@@ -14,7 +12,7 @@ const BRANCH_DEVELOP* = "develop"
 
 const SYNOPSIS* = fmt"""
 
-Embark CLI v{VERSION}
+Embark CLI
 
 Usage: 
 

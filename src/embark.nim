@@ -27,4 +27,4 @@ try:
     if checkAllPrerequisites():
         main(paramStr(1), paramStr(2))
 except:
-    echo SYNOPSIS
+    raise
