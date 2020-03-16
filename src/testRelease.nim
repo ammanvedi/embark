@@ -74,9 +74,15 @@ proc createCommandPlan*(version: string, userConfig: EmbarkConfig): Commands =
     ]
 
     let writeVersionCommands = generateUserCommands(userConfig.writeVersionCommands, commandModel)
+    let preReleaseStartExtraCommands = generateUserCommands(userConfig.preReleaseStart, commandModel)
     let extraCommands = generateUserCommands(userConfig.postReleaseStart, commandModel)
 
-    return preWriteVersionCommands & writeVersionCommands & postWriteVersionCommands & extraCommands
+    return 
+        preWriteVersionCommands &
+        preReleaseStartExtraCommands &
+        writeVersionCommands &
+        postWriteVersionCommands &
+        extraCommands
 
 proc handleTestRelease*(version: string): Commands =
     if validateVersion(version) == false:

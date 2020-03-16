@@ -6,7 +6,13 @@ proc loadConfig*(locatiion: string = CONFIG_LOCATION): EmbarkConfig =
         let parsed = parseJson(fileContent)
         return to(parsed, EmbarkConfig)
     except:
-        return EmbarkConfig(postReleaseStart: @[], postReleaseFinish: @[])
+        return EmbarkConfig(
+            writeVersionCommands: @[],
+            readVersionCommand: "",
+            preReleaseStart: @[],
+            postReleaseStart: @[],
+            postReleaseFinish: @[]
+        )
 
 proc applyModelToUserCommand*(command: string, model: UserCommandsModel): string =
     var finalCmd = command
@@ -25,8 +31,14 @@ proc generateUserCommand(userCommand: string, model: UserCommandsModel): Command
     )
 
 proc generateUserCommands*(commands: seq[string], model: UserCommandsModel): Commands =
-    return map(
-        commands,
-        proc(cmd: string): Command =
-            generateUserCommand(cmd, model) 
-    )
+    if len(commands) == 0:
+        return @[]
+    
+    try:
+        return map(
+            commands,
+            proc(cmd: string): Command =
+                generateUserCommand(cmd, model) 
+        )
+    except:
+        return @[]

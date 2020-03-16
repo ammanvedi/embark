@@ -2,6 +2,7 @@ type
     EmbarkConfig* = object
         writeVersionCommands*: seq[string]
         readVersionCommand*: string
+        preReleaseStart*: seq[string]
         postReleaseStart*: seq[string]
         postReleaseFinish*: seq[string]
 

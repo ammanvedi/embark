@@ -2,5 +2,8 @@
     "readVersionCommand": "cat version.txt",
     "writeVersionCommands": [
         "printf \"%s\" \"{newVersion}\" > version.txt"
+    ],
+    "preReleaseStart": [
+        "sh scripts/build.sh"
     ]
 }

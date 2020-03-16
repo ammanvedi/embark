@@ -1,4 +1,4 @@
-import unittest, configLoader, types
+import unittest, configLoader, types, os
 
 suite "loadConfig":
     test "Returns an empty config when file doesnt exist":
@@ -6,9 +6,11 @@ suite "loadConfig":
         require(len(res.postReleaseStart) == 0)
         require(len(res.postReleaseFinish) == 0)
     test "returns correct config data when file exists":
-        let res = loadConfig("./test-env/config.embark.json")
-        require(len(res.postReleaseStart) == 4)
-        require(len(res.postReleaseFinish) == 4)
+        echo "dsdasdads"
+        echo getCurrentDir()
+        let res = loadConfig("./src/test/test.config.embark.json")
+        require(len(res.postReleaseStart) == 2)
+        require(len(res.postReleaseFinish) == 2)
 
 
 suite "applyModelToUserCommand":

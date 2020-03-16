@@ -32,17 +32,19 @@ suite "createCommandPlan":
         let plan = createCommandPlan("minor", EmbarkConfig(
             writeVersionCommands: @[ "version cmd 1", "version cmd 2" ],
             readVersionCommand: "echo 1.0.0",
+            preReleaseStart: @[ "pre start cmd 1" ],
             postReleaseStart: @[ "post start cmd 1" ],
             postReleaseFinish: @[ "post finish cmd 1" ]
         ))
         require("git checkout develop" in plan[0].command)
         require("git pull" in plan[1].command)
         require("git checkout -b release/1.1.0" in plan[2].command)
-        require("version cmd 1" in plan[3].command)
-        require("version cmd 2" in plan[4].command)
-        require("git add ." in plan[5].command)
-        require("git commit -m" in plan[6].command)
-        require("git push -u origin release/1.1.0" in plan[7].command)
-        require("git checkout develop" in plan[8].command)
-        require("post start cmd 1" in plan[9].command)
+        require("pre start cmd 1" in plan[3].command)
+        require("version cmd 1" in plan[4].command)
+        require("version cmd 2" in plan[5].command)
+        require("git add ." in plan[6].command)
+        require("git commit -m" in plan[7].command)
+        require("git push -u origin release/1.1.0" in plan[8].command)
+        require("git checkout develop" in plan[9].command)
+        require("post start cmd 1" in plan[10].command)
 
