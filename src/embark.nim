@@ -28,10 +28,3 @@ try:
         main(paramStr(1), paramStr(2))
 except:
     echo SYNOPSIS
-
-# nim compile --run -o:../bin/embark ../src/embark.nim prod 1.1.1
-
-
-# TODO - delete command plan if all was successful
-
-# TODO - create checkpoint mode so script can resume from failure point?

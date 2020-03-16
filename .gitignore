@@ -1,5 +1,5 @@
-test-env/.embark.plan.log
-test-env/.embark.failure.log
-test-env/.gitignore
+.embark.plan.log
+.embark.failure.log
 testplan.sh
 bin/test
+bin/test.out

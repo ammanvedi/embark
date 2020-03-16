@@ -1,18 +1,12 @@
-import constants, strformat, json, strutils, configLoader, types, commonCommands
+import constants, strformat, strutils, configLoader, types, commonCommands, logging, checkpoints
 
-proc validateVerison(version: string): bool =
+proc validateVersion*(version: string): bool =
     return 
         version == $VersionBump.Major or
         version == $VersionBump.Minor or
         version == $VersionBump.Patch
 
-proc readVersionFromPackageJSON(): string =
-    let packageText = readFile("package.json")
-    let packageJSON = parseJson(packageText)
-    let version = packageJSON["version"].getStr()
-    return version
-
-proc bumpSemanticVersion(version: string, bump: string): string =
+proc bumpSemanticVersion*(version: string, bump: string): string =
     let versionComponents = version.split('.')
     let versionBump = parseEnum[VersionBump](bump)
     var newVersion = versionComponents
@@ -23,12 +17,30 @@ proc bumpSemanticVersion(version: string, bump: string): string =
 
     return join(newVersion, ".")
 
-proc createCommandPlan(version: string): Commands =
-    let currentVersion = readVersionFromPackageJSON()
+proc createCommandPlan*(version: string, userConfig: EmbarkConfig): Commands =
+
+    let readVersionCommand = Command(
+        command: userConfig.readVersionCommand,
+        descriptionMessage: fmt"Reading current version from filesystem",
+        successMessage: fmt"Read current version from file system",
+        errorMessage: fmt"Could not read current version from file system check readVersionCommand in config"
+    )
+
+    logInfo(readVersionCommand.descriptionMessage, true, false)
+
+    let currentVersionResult = runCommand(readVersionCommand)
+
+    if (currentVersionResult.success == false):
+        logError(readVersionCommand.errorMessage, true, false)
+        return 
+
+    logSuccess(readVersionCommand.successMessage, true, false)
+    let currentVersion = currentVersionResult.output
     let newVersion = bumpSemanticVersion(currentVersion, version)
     let releaseBranch = fmt"release/{newVersion}"
+    let commandModel = UserCommandsModel(version: newVersion, releaseBranch: releaseBranch)
 
-    var baseCommands = @[
+    let preWriteVersionCommands = @[
         checkoutBranch(BRANCH_DEVELOP),
         gitPull(),
         Command(
@@ -37,12 +49,9 @@ proc createCommandPlan(version: string): Commands =
             successMessage: fmt"Created release branch {releaseBranch}",
             errorMessage: fmt"Could not create release branch {releaseBranch}"
         ),
-        Command(
-            command: fmt"npm version {newVersion} --no-git-tag-version",
-            descriptionMessage: fmt"Bumping package.json version to {newVersion}",
-            successMessage: fmt"Bumped package version to {newVersion}",
-            errorMessage: fmt"Failed to bump package version {newVersion}"
-        ),
+    ]
+
+    let postWriteVersionCommands = @[
         Command(
             command: fmt"""git add .""",
             descriptionMessage: "Staging package.json",
@@ -64,16 +73,15 @@ proc createCommandPlan(version: string): Commands =
         checkoutBranch(BRANCH_DEVELOP)
     ]
 
-    # now get any commands specified by the user
-    let userConfig: EmbarkConfig = loadConfig()
-    let commandModel = UserCommandsModel(version: newVersion, releaseBranch: releaseBranch)
+    let writeVersionCommands = generateUserCommands(userConfig.writeVersionCommands, commandModel)
     let extraCommands = generateUserCommands(userConfig.postReleaseStart, commandModel)
 
-    return baseCommands & extraCommands
+    return preWriteVersionCommands & writeVersionCommands & postWriteVersionCommands & extraCommands
 
 proc handleTestRelease*(version: string): Commands =
-    if validateVerison(version) == false:
+    if validateVersion(version) == false:
         echo SYNOPSIS
     else:
-        return createCommandPlan(version)
+        let userConfig: EmbarkConfig = loadConfig()
+        return createCommandPlan(version, userConfig)
     

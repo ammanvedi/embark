@@ -1,6 +1,6 @@
 import nre, constants, configLoader, types, strformat, commonCommands
 
-proc versionIsValid(version: string): bool =
+proc versionIsValid*(version: string): bool =
     return version.match(re"^[0-9]+\.[0-9]+\.[0-9]+$").isSome
 
 proc createDevPRTitle(version: string): string =
@@ -15,7 +15,7 @@ proc createReleaseTitle(releaseTag: string): string =
 proc createReleaseBody(releaseTag: string): string =
     return fmt"Release {releaseTag}"
 
-proc createCommandPlan(version: string): Commands =
+proc createCommandPlan*(version: string, userConfig: EmbarkConfig): Commands =
 
     let releaseBranch = fmt"release/{version}"
     let releaseTag = fmt"v{version}"
@@ -55,9 +55,8 @@ proc createCommandPlan(version: string): Commands =
     ]
 
     # now get any commands specified by the user
-    let userConfig: EmbarkConfig = loadConfig()
     let commandModel = UserCommandsModel(version: version, releaseBranch: releaseBranch)
-    let extraCommands = generateUserCommands(userConfig.postReleaseStart, commandModel)
+    let extraCommands = generateUserCommands(userConfig.postReleaseFinish, commandModel)
 
     return baseCommands & extraCommands
 
@@ -66,4 +65,5 @@ proc handleProdRelease*(version: string): Commands =
     if versionIsValid(version) == false:
         echo SYNOPSIS
     else:
-        return createCommandPlan(version)
+        let userConfig: EmbarkConfig = loadConfig()
+        return createCommandPlan(version, userConfig)

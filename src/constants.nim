@@ -6,7 +6,7 @@ const CONFIG_LOCATION* = "config.embark.json"
 
 const PLAN_LOCATION* = ".embark.plan.log"
 
-const FAIL_LOG_LOCATION* = ".embark.failure.log" 
+const FAIL_LOG_LOCATION* = ".embark.failure.log"
 
 const BRANCH_MASTER* = "master"
 

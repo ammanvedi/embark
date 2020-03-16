@@ -1,0 +1,6 @@
+{
+    "readVersionCommand": "cat version.txt",
+    "writeVersionCommands": [
+        "printf \"%s\" \"{newVersion}\" > version.txt"
+    ]
+}
