@@ -16,10 +16,10 @@ Embark CLI
 
 Usage: 
 
-embark test (major|minor|patch)     Create a new major minor or
+embark start (major|minor|patch)    Create a new major minor or
                                     patch release
 
-embark prod x.x.x                   Complete a previously created major
+embark finish x.x.x                 Complete a previously created major
                                     minor or patch release
 
 Specify configs in a config.embark.json file in the
