@@ -1,8 +1,8 @@
 class Weather < Formula
     desc "A command line tool to help with git releases"
     homepage "https://github.com/ammanvedi/embark"
-    url "https://github.com/ammanvedi/embark/archive/v1.1.2.tar.gz"
-    version "1.1.2"
+    url "https://github.com/ammanvedi/embark/archive/v1.1.3.tar.gz"
+    version "1.1.3"
   
     depends_on "curl"
   
