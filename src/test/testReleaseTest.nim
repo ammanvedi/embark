@@ -34,7 +34,7 @@ suite "createCommandPlan":
             readVersionCommand: "echo 1.0.0",
             preReleaseStart: @[ "pre start cmd 1" ],
             postReleaseStart: @[ "post start cmd 1" ],
-            postReleaseFinish: @[ "post finish cmd 1" ]
+            postReleaseFinish: @[ "post finish cmd 4444" ]
         ))
         require("git checkout develop" in plan[0].command)
         require("git pull" in plan[1].command)
