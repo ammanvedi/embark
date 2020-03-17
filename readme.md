@@ -41,8 +41,8 @@ That contains all these commands, If something fails all you need to do is fix t
 ## Installation
 
 ```
-brew tap ammanvedi/embark
-brew install embark
+brew tap ammanvedi/embark https://github.com/ammanvedi/embark.git
+brew install ammanvedi/embark/embark   
 ```
 
 
