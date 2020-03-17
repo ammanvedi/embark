@@ -1,6 +1,7 @@
   
-
-<img align="center" src="https://i.imgur.com/rjy5WYy.png" alt="embark-logo" width="480"/>
+<div align="center">
+    <img align="center" src="https://i.imgur.com/rjy5WYy.png" alt="embark-logo" width="480"/>
+</div>
 
 <div align="center">Because you arent perfect and neither are your releases</div>
 
@@ -10,6 +11,11 @@
 </div>
 
 ## About
+
+<div align="left">
+    <img src="https://i.imgur.com/IvTOWU5.gif"/>
+</div>
+
 
 Embark is a command line tool for releasing new versions of code on github, it conforms to [git-flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) and handles;
 
