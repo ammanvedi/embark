@@ -54,15 +54,15 @@ proc createCommandPlan*(version: string, userConfig: EmbarkConfig): Commands =
     let postWriteVersionCommands = @[
         Command(
             command: fmt"""git add .""",
-            descriptionMessage: "Staging package.json",
-            successMessage: "Staged package.json",
-            errorMessage: "Failed to stage package.json"
+            descriptionMessage: "Staging changed files",
+            successMessage: "Staged files",
+            errorMessage: "Failed to stage changed files"
         ),
         Command(
-            command: fmt"""git commit -m "[release] {newVersion} package version bump"""",
-            descriptionMessage: "Committing package.json change",
-            successMessage: "Committed package.json change",
-            errorMessage: "Failed to commit package json change"
+            command: fmt"""git commit -m "[release] {newVersion} version bump"""",
+            descriptionMessage: "Committing file changes change",
+            successMessage: "Committed file changes",
+            errorMessage: "Failed to commit file changes"
         ),
         Command(
             command: fmt"git push -u origin {releaseBranch}",
