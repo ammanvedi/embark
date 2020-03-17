@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <img align="center" src="https://github.com/ammanvedi/embark/workflows/Build/badge.svg" />
-  <img align="center" src="https://github.com/ammanvedi/embark/workflows/Build/badge.svg" />
+  <img align="center" src="https://github.com/ammanvedi/embark/workflows/Tests/badge.svg" />
 </div>
 
 ## About
