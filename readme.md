@@ -38,7 +38,6 @@ That contains all these commands, If something fails all you need to do is fix t
 `.embark.failure.log`
 
 
-
 ## Installation
 
 ```
