@@ -4,7 +4,8 @@
         "printf \"%s\" \"{{version}}\" > version.txt"
     ],
     "preReleaseStart": [
-        "sh scripts/build.sh"
+        "sh scripts/build.sh",
+        "sed -i -E 's/[[:digit:]]\\.[[:digit:]]\\.[[:digit:]]/{{version}}/g' embark.rb"
     ],
     "postReleaseStart": [],
     "postReleaseFinish": []

@@ -1,5 +1,7 @@
 <img src="https://i.imgur.com/rjy5WYy.png" alt="embark-logo" width="480"/>
 
+![](https://github.com/ammanvedi/embark/workflows/Build/badge.svg)
+![](https://github.com/ammanvedi/embark/workflows/Tests/badge.svg)
 
 
 Text File Example
