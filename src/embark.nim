@@ -12,9 +12,9 @@ proc main(subcommand: string, param: string) =
     var commandPlan: Commands = @[]
 
     case subcommand
-    of "test":
+    of "start":
         commandPlan = handleTestRelease(param)
-    of "prod":
+    of "finish":
         commandPlan = handleProdRelease(param)
     else:
         echo SYNOPSIS
