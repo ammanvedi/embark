@@ -1,9 +1,10 @@
   
-
-<img align="center" src="https://i.imgur.com/rjy5WYy.png" alt="embark-logo" width="480"/>
-
+<div align="center">
+    <img align="center" src="https://i.imgur.com/rjy5WYy.png" alt="embark-logo" width="480"/>
+</div>
+<br />
 <div align="center">Because you arent perfect and neither are your releases</div>
-
+<br />
 <div align="center">
   <img align="center" src="https://github.com/ammanvedi/embark/workflows/Build/badge.svg" />
   <img align="center" src="https://github.com/ammanvedi/embark/workflows/Build/badge.svg" />
@@ -19,6 +20,9 @@ Embark is a command line tool for releasing new versions of code on github, it c
 4. Creating github release
 5. Running custom commands at various points in deployment
 
+<div align="left">
+    <img src="https://i.imgur.com/IvTOWU5.gif"/>
+</div>
 
 
 ## Aims
@@ -32,7 +36,6 @@ Embark generates an exact plan of what commands it will run <strong>before</stro
 That contains all these commands, If something fails all you need to do is fix the failing command and run the remainder manually, Embark will tell you exactly where you tripped up and will also tell you how in the file;
 
 `.embark.failure.log`
-
 
 
 ## Installation
