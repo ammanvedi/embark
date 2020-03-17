@@ -12,11 +12,6 @@
 
 ## About
 
-<div align="left">
-    <img src="https://i.imgur.com/IvTOWU5.gif"/>
-</div>
-
-
 Embark is a command line tool for releasing new versions of code on github, it conforms to [git-flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) and handles;
 
 1. Bumping versions
@@ -25,6 +20,9 @@ Embark is a command line tool for releasing new versions of code on github, it c
 4. Creating github release
 5. Running custom commands at various points in deployment
 
+<div align="left">
+    <img src="https://i.imgur.com/IvTOWU5.gif"/>
+</div>
 
 
 ## Aims
