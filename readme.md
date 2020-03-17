@@ -2,11 +2,9 @@
 <div align="center">
     <img align="center" src="https://i.imgur.com/rjy5WYy.png" alt="embark-logo" width="480"/>
 </div>
-
-
+<br />
 <div align="center">Because you arent perfect and neither are your releases</div>
-
-
+<br />
 <div align="center">
   <img align="center" src="https://github.com/ammanvedi/embark/workflows/Build/badge.svg" />
   <img align="center" src="https://github.com/ammanvedi/embark/workflows/Build/badge.svg" />
