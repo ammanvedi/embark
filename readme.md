@@ -89,7 +89,8 @@ Here is an example config for an npm project
 
 ```json
 {
-    "readVersionCommand": "node -p \"require('./package.json').version\"",
+    "readVersionCommand": "node -p \"require('./package.json').version\" | tr -d '
+'",
     "writeVersionCommands": [
         "npm version {{version}} --no-git-tag-version"
     ],
