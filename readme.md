@@ -1,4 +1,4 @@
-  
+
 <div align="center">
     <img align="center" src="https://i.imgur.com/rjy5WYy.png" alt="embark-logo" width="480"/>
 </div>
@@ -8,7 +8,11 @@
 <div align="center">
   <img align="center" src="https://github.com/ammanvedi/embark/workflows/Build/badge.svg" />
   <img align="center" src="https://github.com/ammanvedi/embark/workflows/Tests/badge.svg" />
+  <img align="center" src="https://img.shields.io/github/v/release/ammanvedi/embark?sort=semver" />
+
+
 </div>
+
 
 ## About
 
