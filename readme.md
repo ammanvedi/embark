@@ -49,14 +49,22 @@ brew install ammanvedi/embark/embark
 
 ## Usage
 
+First make sure to add 
+
+```
+.embark.plan.log
+.embark.failure.log
+```
+
+to your .gitignore or it will cause problems in the release
+
 ### Configuration
 
-You will need to create a `embark.config.json` in the root of your project. In all the following commands you can interpolate
+You will need to create a `config.embark.json` in the root of your project. In all the following commands you can interpolate
 
 `{{version}}`- Will be replaced by the new version value
 
 `{{releaseBranch}}`- Will be replaced by the new release branch
-
 
 
 #### Options
