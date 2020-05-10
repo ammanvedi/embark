@@ -12,8 +12,14 @@ proc bumpSemanticVersion*(version: string, bump: string): string =
     var newVersion = versionComponents
 
     # Bump the version using int attached to enum as index to edit
-    let toBump = parseInt(newVersion[versionBump.int])
-    newVersion[versionBump.int] = intToStr(toBump + 1)
+
+
+    for ix, versionComponent in newVersion:
+        if ix == versionBump.int:
+            let toBump = parseInt(newVersion[versionBump.int])
+            newVersion[versionBump.int] = intToStr(toBump + 1)
+        if ix > versionBump.int:
+            newVersion[ix] = "0"
 
     return join(newVersion, ".")
 

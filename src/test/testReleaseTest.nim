@@ -18,11 +18,11 @@ suite "validateVersion":
 
 suite "bumpSemanticVersion":
     test "bumps major version":
-        let res = bumpSemanticVersion("1.0.0", "major")
+        let res = bumpSemanticVersion("1.1.1", "major")
         require(res == "2.0.0")
     test "bumps minor version":
-        let res = bumpSemanticVersion("1.0.0", "minor")
-        require(res == "1.1.0")
+        let res = bumpSemanticVersion("1.1.1", "minor")
+        require(res == "1.2.0")
     test "bumps patch version":
         let res = bumpSemanticVersion("1.0.0", "patch")
         require(res == "1.0.1")
